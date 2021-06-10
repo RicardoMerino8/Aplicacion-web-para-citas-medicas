@@ -3,6 +3,7 @@ include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
 include "../modelo/CitaDao.php";
+include "../modelo/PacienteDao.php";
 
 
 ?>
@@ -12,30 +13,30 @@ include "../modelo/CitaDao.php";
           <br> 
             <div class="col-12 d-flex justify-content-between">
                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                    <div class="card-header">Citas Pendientes Hoy</div>
                     <div class="card-body">
-                      <h5 class="card-title">Primary card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <h2 class="card-title text-center"><?php echo CitaDao::citasPendientesHoy(); ?></h2>
+                      <p class="card-text">Citas pendientes para hoy 09-06-2021</p>
                     </div>
                   </div>
                   <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                    <div class="card-header">Citas Pendientes esta semana</div>
                     <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <h2 class="card-title text-center"><?php echo CitaDao::citasPendientesSemana(); ?></h2>
+                      <p class="card-text">Citas pendientes para realizar dentro de los próximos 7 días</p>
                     </div>
                   </div>
                   <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                    <div class="card-header">Citas Realizadas hasta la fecha</div>
                     <div class="card-body">
-                      <h5 class="card-title">Success card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <h2 class="card-title text-center"><?php echo CitaDao::numeroCitasTotales(); ?></h2>
+                      <p class="card-text">Citas realizadas desde el comienzo a la fecha</p>
                     </div>
                   </div>
             </div>
         </div>
-        <a href="citaspasadas.php" class="btn btn-primary">Consultar Citas Pasadas</a>
-<?php $citas = CitaDao::listarCitasDeHoy(); 
+        <a href="citaspasadas.php" class="btn btn-primary mb-3 mt-3">Consultar Citas Pasadas</a>
+<?php $citas = CitaDao::listarCitasHoy(); 
 
 echo "
         <table class='table' id='tabla'>
@@ -57,9 +58,8 @@ echo "
                 echo "<td>" . $fila["fecha"]. "</td>";
                 echo "<td>" . $fila["hora"]. "</td>";
                 echo "<td>" . $fila["tipoConsulta"]. "</td>";
-                echo "<td>" . "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' onClick='obtenerId(".$fila["idPaciente"]." )'>
-                Ver Expediente Médico
-              </button> </td></tr>";
+                echo "<td>" . "<a href='expediente.php?id=".$fila["idPaciente"]."' class='btn btn-primary' )'>
+                Ver Expediente Médico</a> </td></tr>";
             }
         echo "
         </tbody>
@@ -76,35 +76,6 @@ echo "
         
     })
 </script>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      
-        <form action="expediente.php" method="POST">
-
-            <input type="text" id="idPaciente" name="idPaciente">
-            <input type="text" id="fechaDiagnostico" name="fechaDiagnostico">
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" id="btnVerExpediente" name="btnVerExpediente" data-toggle='modal2' data-target='#exampleModal2'>Save changes</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 
         </section>

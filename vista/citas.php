@@ -5,7 +5,15 @@ include "componentes/contenedor.php";
 include "componentes/formCita.php";
 include_once "../modelo/CitaDao.php";
 $arreglo = CitaDao::listarCitas(); 
-    
+?>
+<div class="row mb-3 mt-2">
+  <div class="col-12 d-flex justify-content-between">
+  <h2>Citas pendientes (Todas las fechas)</h2>
+  <a href="citashoy.php" class="btn btn-primary">Ver Citas de Hoy</a>
+  </div>
+</div>
+
+<?php
     
     echo "
         <table class='table' id='tabla'>
@@ -72,15 +80,13 @@ $arreglo = CitaDao::listarCitas();
     </div>
   </div>
 </div>
-<script>
 
+<script>
 function obtenerId(id, fecha, hora){
-    console.log("SE PUDO EL ID ES: " + id);
     $("#txtId").val(id);
     $("#txtFecha").val(fecha);
     $("#txtHora").val(hora);
 }
-
 </script>
 
 </section>

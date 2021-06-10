@@ -11,20 +11,18 @@ include_once "conexion/Conexion.php";
 
         public function guardarCita($cita){
 
-            $sql = "INSERT INTO cita(idDoctor, idSecretaria, idPaciente, fecha, hora, tipoConsulta) VALUES(
+            $sql = "INSERT INTO cita(idDoctor, idSecretaria, idPaciente, fecha, hora, tipoConsulta, estado) VALUES(
                 ".$cita->getIdDoctor()." , ".$cita->getIdSecretaria()." , ".$cita->getIdPaciente()." , '".$cita->getFecha()."' ,
-                '".$cita->getHora()."', '".$cita->getTipoConsulta()."'
+                '".$cita->getHora()."', '".$cita->getTipoConsulta()."', '".$cita->getEstado()."'
             )";
                 echo $sql;
             $conexion = new Conexion;
             $con = $conexion->conectar();
             $resultado = $con->query($sql);
             $conexion->desconectar($con);
-            if($resultado != null){
-                echo "Hay resultados";
+            if($resultado){
                 return true;
             }else{
-                echo "No hay resultados";
                 return false;
             }
         }
@@ -48,6 +46,17 @@ include_once "conexion/Conexion.php";
             ON c.idPaciente = p.idPaciente 
             INNER JOIN diagnostico d ON d.idPaciente = p.idPaciente
             WHERE fecha=current_date() AND estado = 1 ORDER BY fecha ASC, hora DESC;";
+
+            $conexion = new Conexion;
+            $con = $conexion->conectar();
+            $resultado = $con->query($sql);
+            $conexion->desconectar($con);
+            return $resultado;
+        }
+
+        public function listarCitasHoy(){
+            $sql = "SELECT p.nombreCompleto, p.idPaciente, c.fecha, c.hora, c.tipoConsulta, c.estado FROM cita c INNER JOIN 
+            paciente p ON c.idPaciente = p.idPaciente WHERE fecha=CURDATE() AND estado = 1 ORDER BY fecha ASC, hora DESC;";
 
             $conexion = new Conexion;
             $con = $conexion->conectar();
@@ -80,6 +89,39 @@ include_once "conexion/Conexion.php";
             }else{
                 return false;
             }
+        }
+
+        public function numeroCitasTotales(){
+            $sql = "SELECT SUM(idDoctor) from cita;";
+
+            $conexion = new Conexion;
+            $con = $conexion->conectar();
+            $resultado = $con->query($sql);
+            $conexion->desconectar($con);
+            $fila = $resultado->fetch_assoc();
+            return $fila["SUM(idDoctor)"];
+        }
+
+        public function citasPendientesHoy(){
+            $sql = "SELECT SUM(idDoctor) from cita WHERE fecha=current_date() AND estado=1;";
+
+            $conexion = new Conexion;
+            $con = $conexion->conectar();
+            $resultado = $con->query($sql);
+            $conexion->desconectar($con);
+            $fila = $resultado->fetch_assoc();
+            return $fila["SUM(idDoctor)"];
+        }
+
+        public function citasPendientesSemana(){
+            $sql = "SELECT SUM(idDoctor) from cita WHERE fecha < DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY ) and estado = 1";
+
+            $conexion = new Conexion;
+            $con = $conexion->conectar();
+            $resultado = $con->query($sql);
+            $conexion->desconectar($con);
+            $fila = $resultado->fetch_assoc();
+            return $fila["SUM(idDoctor)"];
         }
 
         

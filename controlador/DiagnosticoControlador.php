@@ -18,7 +18,6 @@ if(isset($_POST["btnGuardar"])){
     $presionArterial = $_POST["presionArterial"];
     $peso = $_POST["peso"];
     $observaciones = $_POST["observaciones"];
-    echo "$fecha , $frecuencia , $temperatura , $observaciones";
 
     $diagnostico = new Diagnostico();
     $diagnostico->setIdPaciente($idPaciente);
@@ -28,17 +27,13 @@ if(isset($_POST["btnGuardar"])){
     $diagnostico->setPresionArterial($presionArterial);
     $diagnostico->setPeso($peso);
     $diagnostico->setObservaciones($observaciones);
-    DiagnosticoDao::insertarNuevoDiagnostico($diagnostico);
-
-    if(CitaDao::finalizarCita($idPaciente)){
-        header("location: ../vista/doctor.php");
-    }else{
-        echo "NO SE PUDO FINALIZAR LA CITA";
-    }
-    
+    if(DiagnosticoDao::insertarNuevoDiagnostico($diagnostico)){
+        if(CitaDao::finalizarCita($diagnostico->getIdPaciente())){
+            header("location: ../vista/expediente.php?id=$idPaciente");
+        }else{
+            echo "NO SE PUDO FINALIZAR LA CITA";
+        }
+    }    
 }
-// else{
-//     header("location: ../vista/doctor.php");
-// }
 
 ?>

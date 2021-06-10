@@ -20,15 +20,15 @@ class DiagnosticoDao{
 
     public function insertarNuevoDiagnostico($diagnostico){
         $sql ="INSERT INTO diagnostico(idPaciente, fechaDiagnostico, frecuenciaCardiaca, temperatura, presionArterial, peso, observaciones) VALUES(
-            $diagnostico->getIdPaciente(), '".$diagnostico->getFechaDiagnostico()."', $diagnostico->getFrecuenciaCardiaca(), 
-            $diagnostico->getTemperatura(), $diagnostico->getPresionArterial(), $diagnostico->getPeso(), '".$diagnostico->getObservaciones()."'
+            ".$diagnostico->getIdPaciente().", '".$diagnostico->getFechaDiagnostico()."', ".$diagnostico->getFrecuenciaCardiaca().", 
+            ".$diagnostico->getTemperatura().", ".$diagnostico->getPresionArterial().", ".$diagnostico->getPeso().", '".$diagnostico->getObservaciones()."'
         );";
         echo $sql;
         $conexion = new Conexion;
         $con = $conexion->conectar();
         $resultado = $con->query($sql);
         $conexion->desconectar($con);
-        if($resultado->num_rows >0){
+        if($resultado){
             return true;
         }else{
             return false;

@@ -6,34 +6,33 @@ include "componentes/header.php";
 include "componentes/contenedor.php";
 
 
-        if(isset($_POST["btnVerExpediente"])){
-            $idPaciente = $_POST["idPaciente"];
+        if(isset($_GET)){
+            $idPaciente = $_GET["id"];
             $diag =DiagnosticoDao::obtenerDiagnosticoPorIdPaciente($idPaciente);
-            
+            $fila = $diag->fetch_assoc();
             echo "
             
-            <h2>Expediente del Paciente: </h2>
+            <h2>Expediente del Paciente: ".$fila["nombreCompleto"]." </h2>
+            <button type='button' class='btn btn-success' data-toggle='modal' data-target='#exampleModal3'>
+                Agregar Diagnostico
+              </button>
 <table class='table' id='tabla'>
         <thead>
             <tr>
-                <th>Nombre Paciente</th>
+                
                 <th>Ultima Fecha Diagnostico</th>
                 <th>Frecuencia Cardiaca</th>
                 <th>Peso</th>
                 <th>Presión Arterial</th>
                 <th>Temperatura</th>
                 <th>Observaciones</th>
-                
-                <th><button type='button' class='btn btn-success' data-toggle='modal' data-target='#exampleModal3'>
-                Agregar Diagnostico
-              </button></th>
             </tr>
         </thead>
         <tbody>
             ";
             while($fila = $diag->fetch_assoc()){
                 echo "<tr> ";
-                echo "<td>" . $fila["nombreCompleto"]. "</td>";
+
                 echo "<td>" . $fila["fechaDiagnostico"]. "</td>";
                 echo "<td>" . $fila["frecuenciaCardiaca"]. "</td>";
                 echo "<td>" . $fila["peso"]. "</td>";
@@ -66,19 +65,31 @@ include "componentes/contenedor.php";
       <div class="modal-body">
       
         <form action="../controlador/DiagnosticoControlador.php" method="POST">
-
-            <input type="text" id="idPaciente" name="idPaciente">
-            <input type="text" id="fechaDiagnostico" name="fechaDiagnostico" value="<?php echo date('l'); ?>">
-            <label for="">Frecuencia Cardiaca</label>
-            <input type="text" name="frecuenciaCardiaca" id="frecuenciaCardiaca">
-            <label for="">Temperatura</label>
-            <input type="text" name="temperatura" id="temperatura">
-            <label for="">Presión Arterial</label>
-            <input type="text" name="presionArterial" id="presionArterial">
-            <label for="">Peso</label>
-            <input type="text" name="peso" id="peso">
-            <label for="">Observaciones</label>
-            <input type="text" name="observaciones" id="observaciones">
+            <input type="hidden" id="idPaciente" name="idPaciente" value="<?php echo $idPaciente?>">
+            <div class="form-group">
+              <label for="">Fecha Diagnostico</label>
+              <input class="form-control" type="date" id="fechaDiagnostico" name="fechaDiagnostico" value="<?php date_default_timezone_set("UTC"); echo date('Y-m-d'); ?>">
+            </div>
+            <div class="form-group">
+              <label for="">Frecuencia Cardiaca</label>
+              <input class="form-control" type="text" name="frecuenciaCardiaca" id="frecuenciaCardiaca">
+            </div>
+            <div class="form-group">
+              <label for="">Temperatura</label>
+              <input class="form-control" type="text" name="temperatura" id="temperatura">
+            </div>
+            <div class="form-group">
+              <label for="">Presión Arterial</label>
+              <input class="form-control" type="text" name="presionArterial" id="presionArterial">
+            </div>
+            <div class="form-group">
+              <label for="">Peso</label>
+              <input class="form-control" type="text" name="peso" id="peso">
+            </div>
+            <div class="form-group">
+              <label for="">Observaciones</label>
+              <input class="form-control" type="text" name="observaciones" id="observaciones">
+            </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

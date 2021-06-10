@@ -3,9 +3,10 @@ include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
 include "../modelo/CitaDao.php";
-$arreglo = CitaDao::listarCitasDeHoy(); 
-
-        //var_dump($arreglo);
+$arreglo = CitaDao::listarCitasHoy(); 
+?>
+<h2>Citas pendientes de hoy</h2>
+<?php
         echo "
         <table class='table' id='tabla'>
         <thead>

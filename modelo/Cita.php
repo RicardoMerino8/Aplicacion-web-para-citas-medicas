@@ -7,6 +7,7 @@
         private $fecha;
         private $hora;
         private $tipoConsulta;
+        private $estado;
 
         public function __construct(){
 
@@ -66,6 +67,14 @@
 
         public function getTipoConsulta(){
             return $this->tipoConsulta;
+        }
+
+        public function setEstado($estado){
+            $this->estado = $estado;
+        }
+
+        public function getEstado(){
+            return $this->estado;
         }
 
     }
