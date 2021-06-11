@@ -9,7 +9,8 @@ require_once "../modelo/DiagnosticoDao.php";
 
 
 $idPaciente = $_GET["paciente"];
-$paciente = PacienteDao::obtenerPacientePorId($idPaciente);
+if($idPaciente !=""){
+    $paciente = PacienteDao::obtenerPacientePorId($idPaciente);
 $doctor = DoctorDao::obtenerNombreDoctor(1);
 $idDiagnostico = DiagnosticoDao::obtenerIdDiagnostico($idPaciente);
 $receta = DiagnosticoDao::obtenerReceta($idDiagnostico);
@@ -91,4 +92,18 @@ if($receta !=null){
     $pdf->WriteHTML($bootstrap,1);
     $pdf->WriteHTML($html, 2);
     $pdf->Output();
+}else{
+    echo '<script>
+    swal({
+        title: "Complete los campos requeridos",
+        text: "Por favor ingrese el nombre de paciente en el campo de búsqueda e intente de nuevo",
+        icon: "error",
+        dangerMode: false
+    });
+    setInterval(function(){
+        location.href="recetas.php";
+    }, 5000)
+    </script>';
+    
+}
 ?>

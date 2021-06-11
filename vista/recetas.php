@@ -16,76 +16,29 @@ include "componentes/contenedor.php";
                 <button class="btn btn-success w-100" type="button" name="btnBuscar" id="btnBuscar">Buscar</button>
             </div>
             <div class="col-2">
-            <button class="btn btn-danger w-100" type="button" name="btnLimpiar" id="btnLimpiar">Limpiar</button>
+            <button class="btn btn-danger w-100" type="reset" name="btnLimpiar" id="btnLimpiar" >Limpiar</button>
             </div>
         </div>
     </div>
 </form>
 <hr>
 
-<h2>Generar Receta Médica</h2>
-<table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nombre Medicamento</th>
-                    <th>Dosis</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-        </table>
-        <form action="">
-            <input type="text" id="medicamento" placeholder="Medicamento">
-            <input type="text" id="dosis" placeholder="Dosis">
-            <input type="button" value="Agregar" id="agregarMedicamento">
-        </form>
+<h2>Ingreso de Receta Médica</h2>
+<form action="" class="mb-4">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <input class="form-control w-100" type="text" id="medicamento" placeholder="Medicamento">
+        </div>
+        <div class="col-4">
+            <input class="form-control w-100" type="text" id="dosis" placeholder="Dosis">
+        </div>
+        <div class="col-4">
+            <input class="btn btn-primary w-100" type="button" value="Agregar" id="agregarMedicamento">
+        </div>
+    </div>
+</form>
 
-        <a class="btn btn-success" href="receta.php?paciente=1" id="enviarReceta">Enviar receta</a>
-
-        <script>
-            var arregloMedicamentos = [];
-            $("#agregarMedicamento").on("click", function(){
-                var medicamento = $("#medicamento").val();
-                    var dosis = $("#dosis").val();
-                    var obj = {"medicamento": medicamento, "dosis": dosis}
-                    arregloMedicamentos.push(obj);
-                $.ajax({
-                    dataType : 'json',
-                    method: 'POST',
-                    data: obj,
-                    url: '../controlador/recetaprocess.php'
-                }).done(function(respuesta){
-                    console.log(respuesta.medicamento);
-                    console.log(respuesta.dosis);
-                    $("#tbody").append('<tr><td>'+respuesta.medicamento+'</td><td>'+respuesta.dosis+'</td></tr>');
-                }).fail(function(){
-
-                });
-            });
-
-            $("#enviarReceta").on("click", function(){
-                var idPaciente = $("#txtIdPaciente").val();
-
-                var data = {"data": arregloMedicamentos}
-                //var datos = new FormData();
-                //datos.append("arregloMedicamentos", arregloMedicamentos);
-                $.ajax({
-                    //contentType:false,
-                    //processData:false,
-                    //cache:false,
-                    //dataType : 'json',
-                    method: 'POST',
-                    data: data,
-                    url: 'obtenreceta.php?paciente='+idPaciente
-                }).done(function(respuesta){
-                    location.href= "receta.php?paciente="+idPaciente
-                }).fail(function(){
-
-                });
-            });
-        </script>
-
-<form action="../controlador/CitaControllador.php" method="POST">
+<form action="../controlador/CitaControllador.php" method="POST" class="mb-4">
     <input type="hidden" name="txtIdPaciente" id="txtIdPaciente">
     <div class="row">
         <div class="col-6">
@@ -94,10 +47,79 @@ include "componentes/contenedor.php";
         </div>
         <div class="col-6 ">
             <label for="" class="font-weight-bold">Generar e imprimir</label>
-            <a href="" class="btn d-block btn-primary">Generar Receta</a>
+            <a href="receta.php?paciente=" class="d-block btn d-block btn-primary" id="enviarReceta">Generar Receta</a>
         </div>
     </div>
 </form>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nombre Medicamento</th>
+            <th>Dosis</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+</table>
+
+        <script>
+            var arregloMedicamentos = [];
+            $("#agregarMedicamento").on("click", function(){
+                    var medicamento = $("#medicamento").val();
+                    var dosis = $("#dosis").val();
+                    if(medicamento!="" && dosis !=""){
+                        var obj = {"medicamento": medicamento, "dosis": dosis}
+                            arregloMedicamentos.push(obj);
+                        $.ajax({
+                            dataType : 'json',
+                            method: 'POST',
+                            data: obj,
+                            url: '../controlador/recetaprocess.php'
+                        }).done(function(respuesta){
+                            console.log(respuesta.medicamento);
+                            console.log(respuesta.dosis);
+                            $("#tbody").append('<tr><td>'+respuesta.medicamento+'</td><td>'+respuesta.dosis+'</td></tr>');
+                            $("#medicamento").val("");
+                            $("#dosis").val("");
+                        }).fail(function(){
+
+                        });
+                    }else{
+                        swal({
+                            title: "Complete los campos requeridos",
+                            text: "Por favor ingrese el nombre del medicamento y la dosis recomendada",
+                            icon: "error",
+                            dangerMode: false
+                        });
+                    }
+            });
+
+            $("#enviarReceta").on("click", function(){
+                var idPaciente = $("#txtIdPaciente").val();
+
+                if(idPaciente !=""){
+                    var data = {"data": arregloMedicamentos}
+                    //var datos = new FormData();
+                    //datos.append("arregloMedicamentos", arregloMedicamentos);
+                    $.ajax({
+                        //contentType:false,
+                        //processData:false,
+                        //cache:false,
+                        //dataType : 'json',
+                        method: 'POST',
+                        data: data,
+                        url: 'obtenreceta.php?paciente='+idPaciente
+                    }).done(function(respuesta){
+                        location.href= "receta.php?paciente="+idPaciente
+                    }).fail(function(){
+
+                    });
+                }
+            });
+        </script>
+
+
 
 
 <script>
@@ -119,15 +141,9 @@ include "componentes/contenedor.php";
         }).fail(function(){
             swal({
                 title: "Paciente no encontrado!",
-                text: "¿Desea abrir expediente a nombre de "+ $("#txtNombre").val() + "?",
+                text: "Por favor intente de nuevo con el nombre completo",
                 icon: "info",
-                buttons: ["Cancelar", "Aceptar"],
-                dangerMode: false,
-                })
-                .then((ok) => {
-                if (ok) {
-                    $('#modalExpediente').modal("show");
-                } 
+                dangerMode: false
             });
         });
     });
