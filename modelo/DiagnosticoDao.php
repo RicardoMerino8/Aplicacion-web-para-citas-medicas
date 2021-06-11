@@ -33,7 +33,26 @@ class DiagnosticoDao{
         }else{
             return false;
         }
+    }
 
+    public function obtenerReceta($idDiagnostico){
+        $sql = "SELECT * FROM receta WHERE idDiagnostico=".$idDiagnostico;
+        $conexion = new Conexion;
+        $con = $conexion->conectar();
+        $resultado = $con->query($sql);
+        $conexion->desconectar($con);
+
+        return $resultado;
+    }
+
+    public function obtenerIdDiagnostico($idPaciente){
+        $sql ="SELECT idDiagnostico from diagnostico WHERE idPaciente=".$idPaciente." AND fechaDiagnostico=current_date()";
+        $conexion = new Conexion;
+        $con = $conexion->conectar();
+        $resultado = $con->query($sql);
+        $conexion->desconectar($con);
+        $fila = $resultado->fetch_assoc();
+        return $fila["idDiagnostico"];
     }
 }
 ?>

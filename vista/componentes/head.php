@@ -11,6 +11,8 @@
     <script src="js/popper.min.js" ></script>
     <script src="js/bootstrap.js" ></script>
     <script src="js/sweetalert.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
 
 </head>
 <body>

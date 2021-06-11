@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
+
 .bg-primary{
     background-color: #005fc4 !important;
+}
+.letra-carta{
+    font-family: 'Felipa', cursive;
+    font-size: 3em;
+    font-weight: 100;
+}
+.linea{
+    box-sizing: border-box;
+    width: 100%;
+    border-bottom: 1px solid black;
+    border-spacing: 4em;
+    padding: 5px;
+    margin: 20px;
 }

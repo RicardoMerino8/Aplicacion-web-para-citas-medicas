@@ -62,7 +62,11 @@ include_once "conexion/Conexion.php";
             $con = $conexion->conectar();
             $resultado = $con->query($sql);
             $conexion->desconectar($con);
-            return $resultado;
+            //if($resultado->num_rows >0){
+                return $resultado;
+            //}else{
+            //    return false;
+            //}
         }
 
         public function editarCita($fecha, $hora, $idCita){
@@ -99,7 +103,11 @@ include_once "conexion/Conexion.php";
             $resultado = $con->query($sql);
             $conexion->desconectar($con);
             $fila = $resultado->fetch_assoc();
-            return $fila["SUM(idDoctor)"];
+            if($fila["SUM(idDoctor)"] != 0){
+                return $fila["SUM(idDoctor)"];
+            }else {
+                return "0";
+            }
         }
 
         public function citasPendientesHoy(){
@@ -110,7 +118,11 @@ include_once "conexion/Conexion.php";
             $resultado = $con->query($sql);
             $conexion->desconectar($con);
             $fila = $resultado->fetch_assoc();
-            return $fila["SUM(idDoctor)"];
+            if($fila["SUM(idDoctor)"] != 0){
+                return $fila["SUM(idDoctor)"];
+            }else {
+                return "0";
+            }
         }
 
         public function citasPendientesSemana(){
@@ -121,7 +133,11 @@ include_once "conexion/Conexion.php";
             $resultado = $con->query($sql);
             $conexion->desconectar($con);
             $fila = $resultado->fetch_assoc();
-            return $fila["SUM(idDoctor)"];
+            if($fila["SUM(idDoctor)"] != 0){
+                return $fila["SUM(idDoctor)"];
+            }else {
+                return "0";
+            }
         }
 
         

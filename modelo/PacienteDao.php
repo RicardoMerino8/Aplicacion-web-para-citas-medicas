@@ -41,6 +41,15 @@ class PacienteDao{
         return $nombrePaciente;
     }
 
+    public function obtenerPacientePorId($idPaciente){
+        $sql = "SELECT * FROM paciente WHERE idPaciente=$idPaciente";
+        $conexion = new Conexion;
+        $con = $conexion->conectar();
+        $resultado = $con->query($sql);
+        $conexion->desconectar($con);
+        return $resultado;
+    }
+
     public function agregarNuevoPaciente($paciente){
         $sql = "INSERT INTO paciente (nombreCompleto, telefono, direccion, edad, idSecretaria) 
         VALUES ('".$paciente->getNombreCompleto()."', '".$paciente->getTelefono()."', '".$paciente->getDireccion()."', '".$paciente->getEdad()."', ".$paciente->getIdSecretaria().")";
