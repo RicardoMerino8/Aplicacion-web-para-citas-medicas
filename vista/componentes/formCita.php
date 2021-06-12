@@ -24,7 +24,7 @@
 <hr>
 
 <h2>Creación de citas</h2>
-<form action="../controlador/CitaControllador.php" method="POST">
+<form action="../controlador/CitaControllador.php" method="POST" id="formularioCitas">
     <input type="hidden" name="txtIdPaciente" id="txtIdPaciente">
     <div class="row">
         <div class="col-6">
@@ -57,7 +57,7 @@
     </select>
         </div>
     </div>
-    <input type="submit" value="Guardar Cita" name="guardarcita" class="btn btn-primary w-100 mt-3">
+    <input type="submit" value="Guardar Cita" name="guardarcita" id="guardarcita" class="btn btn-primary w-100 mt-3">
 </form>
 <hr>
 <script>
@@ -92,6 +92,19 @@
         });
     });
 
+    $("#guardarcita").on("click", function(){
+        if($("#txtIdPaciente").val() =="" && $("#fecha").val() ==""){
+            swal({
+                title: "Error al agendar cita",
+                text: "Por favor llene todos los campos requeridos para agendar cita",
+                icon: "info",
+                dangerMode: false
+            })
+            $("#formularioCitas").on("submit", function(e){
+                e.preventDefault();
+            })
+        }
+    })
     
 </script>
 

@@ -1,4 +1,9 @@
 <?php include "../modelo/CitaDao.php";
+session_start();
+$usuario = unserialize($_SESSION["sesion"]);
+if($usuario==null ){
+    header("location: ../index.php");
+}
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";

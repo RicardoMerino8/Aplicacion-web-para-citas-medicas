@@ -1,22 +1,28 @@
 <?php include "../modelo/CitaDao.php";
+session_start();
+$usuario = unserialize($_SESSION["sesion"]);
+if($usuario==null ){
+    header("location: ../index.php");
+}
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
+include "../modelo/DoctorDao.php";
 
  $citas3 = CitaDao::listarCitas(); 
  ?>
 <h2>Historial de Citas Pasadas</h2>
 <?php
 echo "
-        <table class='table' id='tabla'>
-        <thead>
+        <table class='table mt-4' id='tabla'>
+        <thead class='thead-dark'>
             <tr>
                 <th>Nombre Paciente</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Tipo de Consulta</th>
                 <th>Estado</th>
-                <th>Acción</th>
+                <th>Realizada por Dr.</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +39,7 @@ echo "
                 }else{
                     echo "<td>" . "Terminada" . "</td>";
                 };
-                echo "<td><a href='expediente.php?id=".$fila["idPaciente"]."' class='btn btn-primary' )'>Ver Expediente Médico</a></td></tr>";
+                echo "<td>".  DoctorDao::obtenerNombreDoctor(1). "</td></tr>";
             }
         echo "
         </tbody>

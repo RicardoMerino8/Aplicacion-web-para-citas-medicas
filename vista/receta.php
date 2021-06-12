@@ -1,6 +1,7 @@
 <?php 
 require_once "../modelo/ReportesDao.php";
 require_once  '../vendor/autoload.php';
+include "sesionDoctor.php";
 require "componentes/head.php";
 require_once "../modelo/PacienteDao.php";
 require_once "../modelo/DoctorDao.php";

@@ -1,20 +1,24 @@
 <?php
+session_start();
+$usuario = unserialize($_SESSION["sesion"]);
+if($usuario== null ){
+  header("location: ../index.php");
+}
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
 include "componentes/formCita.php";
 include_once "../modelo/CitaDao.php";
-$arreglo = CitaDao::listarCitas(); 
+
 ?>
 <div class="row mb-3 mt-2">
   <div class="col-12 d-flex justify-content-between">
-  <h2>Citas pendientes (Todas las fechas)</h2>
-  <a href="citashoy.php" class="btn btn-primary">Ver Citas de Hoy</a>
+  <h2>Citas pendientes de Hoy</h2>
+  <a href="citaspasadas.php" class="btn btn-info">Ver Historial de Citas</a>
   </div>
 </div>
 
 <?php
-    
     echo "
         <table class='table' id='tabla'>
         <thead>
@@ -29,16 +33,7 @@ $arreglo = CitaDao::listarCitas();
         <tbody>
         ";  
         
-            while($fila = $arreglo->fetch_assoc()){
-                echo "<tr> ";
-                echo "<td>" . $fila["nombreCompleto"]. "</td>";
-                echo "<td>" . $fila["fecha"]. "</td>";
-                echo "<td>" . $fila["hora"]. "</td>";
-                echo "<td>" . $fila["tipoConsulta"]. "</td>";
-                echo "<td>" . "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' onClick='obtenerId(".$fila["idCita"]." ,\"".$fila["fecha"]."\", \"".$fila["hora"]."\")'>
-                Reprogramar Cita
-              </button> </td></tr>";
-            }
+        cargarTabla();
         echo "
         </tbody>
     </table>
@@ -87,10 +82,72 @@ function obtenerId(id, fecha, hora){
     $("#txtFecha").val(fecha);
     $("#txtHora").val(hora);
 }
+
+function eliminarCita(idCita){
+  var idCitaEliminar = {"idCita": idCita}
+  swal({
+  title: "Are you sure?",
+  text: "Once deleted, you will not be able to recover this imaginary file!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    //codigo para eliminar cita
+    $.ajax({
+      type: 'POST',
+      data: idCitaEliminar,
+      url: 'citas.php'
+
+    }).done(function(respuesta){
+      swal({
+        title: "Cita Cancelada",
+        text: "Cita cancelada de forma exitosa de la base de datos",
+        icon: "success",
+      })
+      location.href="citas.php";
+    }).fail(function(){
+
+    })
+  } else {
+    swal("Your imaginary file is safe!");
+  }
+})
+}
 </script>
 
 </section>
         </div>
     </div>
 </div>
+<?php 
+
+if($_POST){
+    $idCitaEliminar = $_POST["idCita"];
+  if(CitaDao::eliminarCita($idCitaEliminar)){
+    echo "Cita cancelada exitosamente";
+    header("location: citas.php");
+    cargarTabla();
+  }else{
+    echo "No se pudo cancelar la cita";
+  }
+}
+
+function cargarTabla(){
+  $arreglo = CitaDao::listarCitasHoy(); 
+  while($fila = $arreglo->fetch_assoc()){
+    echo "<tr> ";
+    echo "<td>" . $fila["nombreCompleto"]. "</td>";
+    echo "<td>" . $fila["fecha"]. "</td>";
+    echo "<td>" . $fila["hora"]. "</td>";
+    echo "<td>" . $fila["tipoConsulta"]. "</td>";
+    echo "<td>" . "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' onClick='obtenerId(".$fila["idCita"]." ,\"".$fila["fecha"]."\", \"".$fila["hora"]."\")'>
+    Reprogramar Cita
+  </button>  <button type='button' class='btn btn-danger' onClick='eliminarCita(".$fila["idCita"].")'>
+  Cancelar Cita
+</button></td></tr>";
+}
+}
+?>
 <?php include "componentes/footer.php";?>

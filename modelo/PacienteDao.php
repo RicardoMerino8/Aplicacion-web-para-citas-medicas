@@ -65,6 +65,18 @@ class PacienteDao{
 
     }
 
+    public function actualizarPaciente($paciente){
+        $sql = "UPDATE paciente SET nombreCompleto='" .$paciente->getNombreCompleto(). "', telefono='".$paciente->getTelefono()."', direccion='" .$paciente->getDireccion()."', edad=".$paciente->getEdad().", idSecretaria=1
+        WHERE idPaciente=" .$paciente->getIdPaciente();
+        echo $sql;
+        $conexion = new Conexion;
+        $con = $conexion->conectar();
+        $resultado = $con->query($sql);
+        $conexion->desconectar($con);
+        return $resultado;
+
+    }
+
 }
 
 ?>

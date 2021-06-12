@@ -55,7 +55,7 @@ include_once "conexion/Conexion.php";
         }
 
         public function listarCitasHoy(){
-            $sql = "SELECT p.nombreCompleto, p.idPaciente, c.fecha, c.hora, c.tipoConsulta, c.estado FROM cita c INNER JOIN 
+            $sql = "SELECT p.nombreCompleto, p.idPaciente, c.idCita, c.fecha, c.hora, c.tipoConsulta, c.estado FROM cita c INNER JOIN 
             paciente p ON c.idPaciente = p.idPaciente WHERE fecha=CURDATE() AND estado = 1 ORDER BY fecha ASC, hora DESC;";
 
             $conexion = new Conexion;
@@ -140,6 +140,18 @@ include_once "conexion/Conexion.php";
             }
         }
 
+        public function eliminarCita($idCita){
+            $sql = "DELETE FROM cita WHERE idCita= ". $idCita;
+            $conexion = new Conexion;
+            $con = $conexion->conectar();
+            $resultado = $con->query($sql);
+            $conexion->desconectar($con);
+            if($resultado){
+                return true;
+            }else{
+                return false;
+            }
+        }
         
     }
 

@@ -1,8 +1,8 @@
 <?php
+include "sesionDoctor.php";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
-
 ?>
 
 <h2>Búsqueda de pacientes</h2>

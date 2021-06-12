@@ -1,4 +1,5 @@
 <?php
+include "sesionDoctor.php";
 include "../modelo/RecetaDao.php";
 include_once "../modelo/Receta.php";
 include_once "../modelo/DiagnosticoDao.php";

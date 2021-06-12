@@ -1,4 +1,5 @@
 <?php 
+include "sesionDoctor.php";
 require_once "../modelo/ReportesDao.php";
 require_once  '../vendor/autoload.php';
 require "componentes/head.php";
