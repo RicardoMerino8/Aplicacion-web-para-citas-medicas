@@ -19,7 +19,8 @@ if(isset($_POST["btnGuardar"])){
     $peso = $_POST["peso"];
     $observaciones = $_POST["observaciones"];
 
-    $diagnostico = new Diagnostico();
+    if($idPaciente!="" && $frecuencia!="" && $temperatura!="" && $presionArterial!="" && $peso!="" && $observaciones!=""){
+        $diagnostico = new Diagnostico();
     $diagnostico->setIdPaciente($idPaciente);
     $diagnostico->setFechaDiagnostico($fecha);
     $diagnostico->setFrecuenciaCardiaca($frecuencia);
@@ -33,7 +34,11 @@ if(isset($_POST["btnGuardar"])){
         }else{
             echo "NO SE PUDO FINALIZAR LA CITA";
         }
+    }
+    }else{
+        header("location: ../vista/expediente.php?id=". $idPaciente."");
     }    
 }
+
 
 ?>

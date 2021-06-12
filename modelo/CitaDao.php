@@ -29,7 +29,7 @@ include_once "conexion/Conexion.php";
 
         public function listarCitas(){
             $sql = "SELECT p.nombreCompleto, p.idPaciente, c.fecha, c.hora, c.tipoConsulta, c.idCita, c.estado FROM cita c INNER JOIN paciente p
-            ON c.idPaciente = p.idPaciente ORDER BY fecha ASC, hora DESC;";
+            ON c.idPaciente = p.idPaciente WHERE estado=0 ORDER BY fecha ASC, hora DESC;";
             $tabla = "";
             $arreglo= [];
 

@@ -1,4 +1,11 @@
-<h2>Búsqueda de pacientes</h2>
+<div class="row">
+    <div class="col-6">
+    <h2>Búsqueda de pacientes</h2> 
+    </div>
+    <div class="col-6 text-right">
+        <h2>Bienvenida Secretaria</h2>
+    </div>
+</div>
 <form action="../controlador/cita.php" method="POST">
     <div class="form-group">
         <div class="row">

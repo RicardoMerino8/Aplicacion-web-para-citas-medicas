@@ -17,6 +17,15 @@ class RecetaDao{
         }
     }
 
+    public function obtenerRecetasPorIdDiag($idDiagnostico){
+        $sql = "SELECT * FROM receta where idDiagnostico=" .$idDiagnostico;
+        $conexion = new Conexion;
+        $con = $conexion->conectar();
+        $resultado = $con->query($sql);
+        $conexion->desconectar($con);
+        return $resultado;
+    }
+
 }
 
 ?>
