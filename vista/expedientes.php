@@ -13,8 +13,8 @@ include "componentes/contenedor.php";
 <h2>Expedientes de Pacientes</h2>
 <?php
 echo "
-        <table class='table' id='tabla'>
-        <thead>
+        <table class='table mt-4' id='tabla'>
+        <thead class='thead-dark'>
             <tr>
                 <th>Nombre Paciente</th>
                 <th>Fecha</th>

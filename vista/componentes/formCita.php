@@ -3,7 +3,7 @@
     <h2>Búsqueda de pacientes</h2> 
     </div>
     <div class="col-6 text-right">
-        <h2>Bienvenida Secretaria</h2>
+        <h2>Bienvenida <?php echo $usuario->getNombreCompleto(); ?></h2>
     </div>
 </div>
 <form action="../controlador/cita.php" method="POST">
