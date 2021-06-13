@@ -46,7 +46,7 @@ include_once "../modelo/CitaDao.php";
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Reprogramar Cita</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -68,8 +68,8 @@ include_once "../modelo/CitaDao.php";
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" id="btnGuardar" name="btnGuardar">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="btnGuardar" name="btnGuardar">Reprogramar Cita</button>
         </form>
       </div>
     </div>
@@ -86,8 +86,8 @@ function obtenerId(id, fecha, hora){
 function eliminarCita(idCita){
   var idCitaEliminar = {"idCita": idCita}
   swal({
-  title: "Are you sure?",
-  text: "Once deleted, you will not be able to recover this imaginary file!",
+  title: "¿Desea cancelar la cita?",
+  text: "Una vez cancelada se eliminará de la base de datos",
   icon: "warning",
   buttons: true,
   dangerMode: true,
@@ -110,8 +110,6 @@ function eliminarCita(idCita){
     }).fail(function(){
 
     })
-  } else {
-    swal("Your imaginary file is safe!");
   }
 })
 }

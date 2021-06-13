@@ -9,7 +9,7 @@ class DiagnosticoDao{
     }
 
     public function obtenerDiagnosticoPorIdPaciente($idPaciente){
-        $sql = "SELECT *, p.nombreCompleto FROM diagnostico d INNER JOIN paciente p ON p.idPaciente= d.idPaciente WHERE d.idPaciente = $idPaciente";
+        $sql = "SELECT *, p.nombreCompleto FROM diagnostico d INNER JOIN paciente p ON p.idPaciente= d.idPaciente WHERE d.idPaciente =". $idPaciente;
         $conexion = new Conexion;
         $con = $conexion->conectar();
         $resultado = $con->query($sql);

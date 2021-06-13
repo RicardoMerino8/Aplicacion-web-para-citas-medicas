@@ -12,11 +12,11 @@ require_once "../modelo/DiagnosticoDao.php";
 $idPaciente = $_GET["paciente"];
 if($idPaciente !=""){
     $paciente = PacienteDao::obtenerPacientePorId($idPaciente);
-$doctor = DoctorDao::obtenerNombreDoctor(1);
-$idDiagnostico = DiagnosticoDao::obtenerIdDiagnostico($idPaciente);
-$receta = DiagnosticoDao::obtenerReceta($idDiagnostico);
-$fecha = date('d-m-Y');
-$fila = $paciente->fetch_assoc(); 
+    $doctor = DoctorDao::obtenerNombreDoctor(1);
+    $idDiagnostico = DiagnosticoDao::obtenerIdDiagnostico($idPaciente);
+    $receta = DiagnosticoDao::obtenerReceta($idDiagnostico);
+    $fecha = date('d-m-Y');
+    $fila = $paciente->fetch_assoc(); 
 
 
 $datosTabla="";

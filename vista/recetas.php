@@ -38,7 +38,7 @@ include "componentes/contenedor.php";
     </div>
 </form>
 
-<form action="../controlador/CitaControllador.php" method="POST" class="mb-4">
+<form  method="POST" class="mb-4">
     <input type="hidden" name="txtIdPaciente" id="txtIdPaciente">
     <div class="row">
         <div class="col-6">
@@ -47,7 +47,7 @@ include "componentes/contenedor.php";
         </div>
         <div class="col-6 ">
             <label for="" class="font-weight-bold">Generar e imprimir</label>
-            <a href="receta.php?paciente=" class="d-block btn d-block btn-primary" id="enviarReceta">Generar Receta</a>
+            <a href="receta.php?paciente=" class="d-block btn d-block btn-primary" id="enviarReceta" >Generar Receta</a>
         </div>
     </div>
 </form>
@@ -100,13 +100,7 @@ include "componentes/contenedor.php";
 
                 if(idPaciente !=""){
                     var data = {"data": arregloMedicamentos}
-                    //var datos = new FormData();
-                    //datos.append("arregloMedicamentos", arregloMedicamentos);
                     $.ajax({
-                        //contentType:false,
-                        //processData:false,
-                        //cache:false,
-                        //dataType : 'json',
                         method: 'POST',
                         data: data,
                         url: 'obtenreceta.php?paciente='+idPaciente

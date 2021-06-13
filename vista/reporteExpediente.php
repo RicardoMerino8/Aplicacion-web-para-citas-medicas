@@ -5,7 +5,9 @@ require_once  '../vendor/autoload.php';
 require "componentes/head.php";
 require_once "../modelo/PacienteDao.php";
 
+
 $idPaciente = $_GET["paciente"];
+
 $nombrePaciente = PacienteDao::obtenerNombrePacientePorId($idPaciente);
     $resultados = ReportesDao::reporteExpediente($idPaciente);
     $html = "";
