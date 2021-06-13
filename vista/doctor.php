@@ -1,5 +1,6 @@
 <?php
 include "sesionDoctor.php";
+$titulo ="Inicio Doctor";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
@@ -41,7 +42,7 @@ include "../utilidades/func.php";
 
 
 <table class='table' id='tabla'>
-<thead>
+<thead class="thead-dark">
     <tr>
         <th>Nombre Paciente</th>
         <th>Fecha</th>

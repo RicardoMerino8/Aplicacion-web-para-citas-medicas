@@ -24,7 +24,7 @@
                 break;
                 case 'Saturday': $dia = 'Sabado';
                 break;
-                case ' Sunday': $dia = 'Domingo';
+                case 'Sunday': $dia = 'Domingo';
             }
 
             switch($mes){

@@ -23,6 +23,9 @@ if(isset($_SESSION["sesion"])){
         <li class="nav-item">
             <a class="nav-link text-white" href="../vista/citaspasadas.php">Historial de Citas</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="../vista/citaspendientes.php">Citas Pendientes (Todas)</a>
+        </li>
     </ul>
 </nav>
 ';
@@ -42,6 +45,9 @@ if(isset($_SESSION["sesion"])){
             <li class="nav-item">
                 <a class="nav-link text-white" href="../vista/citaspasadas.php">Historial de Citas</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link text-white" href="../vista/citaspendientes.php">Citas Pendientes (Todas)</a>
+        </li>
         </ul>
     </nav>
         ';

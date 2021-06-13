@@ -7,6 +7,7 @@ if($usuario==null ){
 include "../modelo/DiagnosticoDao.php";
 include "../modelo/PacienteDao.php";
 include "../modelo/RecetaDao.php";
+$titulo ="Expediente";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
@@ -21,13 +22,12 @@ include "componentes/contenedor.php";
             ?>
             
             <?php 
-
             echo "
             <!-- Button trigger modal -->
             
             <div class='row mb-4'>
               <div class='col-7'>
-              <h2>Expediente del Paciente: ".$usuario->getNombreCompleto()." </h2>
+              <h2>Expediente del Paciente: ".$datoPaciente["nombreCompleto"]." </h2>
               </div>
               <div class='col-5'> ";
               if($usuario->getIdRol() == 2){
@@ -35,7 +35,8 @@ include "componentes/contenedor.php";
                 <i class='fas fa-edit display-3 text-primary' ></i>
                 </button>";
               }else{
-                echo "<button type='button' class='btn btn-success' data-toggle='modal' data-target='#exampleModal3'>
+                echo "<span class='badge badge-warning'>Al agregar un diagnóstico se dará por finalizada la cita actual</span>
+                <button type='button' class='btn btn-success mt-4 ml-4' data-toggle='modal' data-target='#exampleModal3'>
                 Agregar Diagnostico
               </button>";
               }

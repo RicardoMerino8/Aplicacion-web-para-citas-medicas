@@ -1,5 +1,6 @@
 <?php
 include "sesionDoctor.php";
+$titulo = "Recetas";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
@@ -27,13 +28,13 @@ include "componentes/contenedor.php";
 <form action="" class="mb-4">
     <div class="row justify-content-center">
         <div class="col-4">
-            <input class="form-control w-100" type="text" id="medicamento" placeholder="Medicamento">
+            <input class="form-control w-100" type="text" id="medicamento" placeholder="Medicamento" disabled>
         </div>
         <div class="col-4">
-            <input class="form-control w-100" type="text" id="dosis" placeholder="Dosis">
+            <input class="form-control w-100" type="text" id="dosis" placeholder="Dosis" disabled>
         </div>
         <div class="col-4">
-            <input class="btn btn-primary w-100" type="button" value="Agregar" id="agregarMedicamento">
+            <input class="btn btn-primary w-100" type="button" value="Agregar" id="agregarMedicamento" disabled>
         </div>
     </div>
 </form>
@@ -47,7 +48,7 @@ include "componentes/contenedor.php";
         </div>
         <div class="col-6 ">
             <label for="" class="font-weight-bold">Generar e imprimir</label>
-            <a href="receta.php?paciente=" class="d-block btn d-block btn-primary" id="enviarReceta" >Generar Receta</a>
+            <a href="#" class="d-block btn d-block btn-primary" id="enviarReceta">Generar Receta</a>
         </div>
     </div>
 </form>
@@ -107,8 +108,16 @@ include "componentes/contenedor.php";
                     }).done(function(respuesta){
                         location.href= "receta.php?paciente="+idPaciente
                     }).fail(function(){
-
+                        
                     });
+                }else{
+                    swal({
+                        title: "¿Desea cancelar la cita?",
+                        text: "Una vez cancelada se eliminará de la base de datos",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
                 }
             });
         </script>
@@ -130,8 +139,15 @@ include "componentes/contenedor.php";
         }).done(function(respuesta){
             $("#txtPaciente").val(respuesta.nombre);
             $("#txtIdPaciente").val(respuesta.id);
-            
-            
+            $("#medicamento").prop("disabled", false);
+            $("#dosis").prop("disabled", false);
+            $("#agregarMedicamento").prop("disabled", false);
+            swal({
+                title: "Paciente Encontrado!",
+                text: "Ahora puede agregar la receta medica para el paciente",
+                icon: "success",
+                dangerMode: false,
+})
         }).fail(function(){
             swal({
                 title: "Paciente no encontrado!",

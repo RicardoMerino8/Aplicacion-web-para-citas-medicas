@@ -10,7 +10,9 @@ class DoctorDao{
         $resultado = $con->query($sql);
         $conexion->desconectar($con);
         $fila = $resultado->fetch_assoc();
-        return $fila["nombreCompleto"];
+        if($fila !=null){
+            return $fila["nombreCompleto"];
+        }
     }
 
 }

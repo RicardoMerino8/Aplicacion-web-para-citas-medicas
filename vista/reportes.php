@@ -1,5 +1,6 @@
 <?php 
 include "sesionDoctor.php";
+$titulo = "Reportes";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
@@ -25,7 +26,7 @@ include "../modelo/PacienteDao.php";
             <h2 class="card-header card-title">Citas por estado</h2>
             <div class="card-body">
                 <form action="../controlador/ReportesControlador.php" method="POST">
-                    <label for="">Obtener reporte de citas por estado</label>
+                    <label for="">Obtener reporte en PDF de citas por estado</label>
                     <select name="estadoCita" id="estadoCita" class="form-control mb-3">
                         <option value="1">Pendientes</option>
                         <option value="0">Realizadas</option>
@@ -41,7 +42,7 @@ include "../modelo/PacienteDao.php";
             <h2 class="card-header card-title">Expedientes por Paciente</h2>
             <div class="card-body">
                 <form action="../controlador/ReportesControlador.php" method="POST">
-                    <label for="">Obtener reporte de expedientes por paciente</label>
+                    <label for="">Obtener reporte en PDF de expedientes por paciente</label>
                     <select name="pacientes" id="pacientes" class="form-control mb-3">
                         <?php 
                             while($fila = $listaPacientes->fetch_assoc()){

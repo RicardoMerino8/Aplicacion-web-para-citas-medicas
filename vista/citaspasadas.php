@@ -4,6 +4,7 @@ $usuario = unserialize($_SESSION["sesion"]);
 if($usuario==null ){
     header("location: ../index.php");
 }
+$titulo = "Citas Pasadas";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";

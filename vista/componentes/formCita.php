@@ -33,14 +33,14 @@
         </div>
         <div class="col-6">
             <label for="" class="font-weight-bold">Fecha de cita</label>
-            <input class="form-control w-100" type="date" name="fecha" id="fecha">
+            <input class="form-control w-100" type="date" name="fecha" id="fecha" disabled>
         </div>
     </div>
 
     <div class="row">
         <div class="col-6">
         <label for="" class="font-weight-bold">Hora</label>
-    <select name="hora" id="hora" class="form-control">
+    <select name="hora" id="hora" class="form-control" disabled>
         <option value="8:00">8:00</option>
         <option value="9:00">9:00</option>
         <option value="10:00">10:00</option>
@@ -50,14 +50,14 @@
         </div>
         <div class="col-6">
         <label for="" class="font-weight-bold">Tipo de consulta</label>
-    <select name="consulta" id="consulta" class="form-control">
+    <select name="consulta" id="consulta" class="form-control" disabled>
         <option value="Lectura de examenes">Lectura de examenes</option>
         <option value="Consulta General">Consulta General</option>
         <option value="Chequeo General">Chequeo General</option>
     </select>
         </div>
     </div>
-    <input type="submit" value="Guardar Cita" name="guardarcita" id="guardarcita" class="btn btn-primary w-100 mt-3">
+    <input type="submit" value="Guardar Cita" name="guardarcita" id="guardarcita" class="btn btn-primary w-100 mt-3" disabled>
 </form>
 <hr>
 <script>
@@ -74,8 +74,16 @@
         }).done(function(respuesta){
             $("#txtPaciente").val(respuesta.nombre);
             $("#txtIdPaciente").val(respuesta.id);
-            
-            
+            swal({
+                title: "Paciente encontrado",
+                text: "Puede agendar cita para el paciente en la sección Creación de Citas",
+                icon: "success",
+                dangerMode: false,
+                })
+            $("#fecha").prop("disabled", false);
+            $("#hora").prop("disabled", false);
+            $("#consulta").prop("disabled", false);
+            $("#guardarcita").prop("disabled", false);
         }).fail(function(){
             swal({
                 title: "Paciente no encontrado!",
@@ -93,7 +101,7 @@
     });
 
     $("#guardarcita").on("click", function(){
-        if($("#txtIdPaciente").val() =="" && $("#fecha").val() ==""){
+        if($("#txtIdPaciente").val() =="" || $("#fecha").val() ==""){
             swal({
                 title: "Error al agendar cita",
                 text: "Por favor llene todos los campos requeridos para agendar cita",
@@ -114,7 +122,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalExpedienteLabel">Modal title</h5>
+        <h5 class="modal-title" id="modalExpedienteLabel">Ingreso de datos de paciente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -122,28 +130,28 @@
       <div class="modal-body">
         <form action="">
         <div class="form-group">
-            <label for="">Nombre Paciente</label>
+            <label for="" class="font-weight-bold">Nombre Paciente</label>
             <input class="form-control" type="text" name="txtNombre" id="txtNombre">
         </div>
             <div class="form-group">
-                <label for="">Número de Teléfono</label>
+                <label for="" class="font-weight-bold">Número de Teléfono</label>
                 <input class="form-control" type="text" name="txtTelefono" id="txtTelefono"> 
             </div>   
 
             <div class="form-group">
-                <label for="">Dirección</label>
+                <label for="" class="font-weight-bold">Dirección</label>
                 <input class="form-control" type="text" name="txtDireccion" id="txtDireccion">
             </div>
             
             <div class="form-group">
-                <label for="">Edad</label>
+                <label for="" class="font-weight-bold">Edad</label>
                 <input class="form-control" type="text" name="txtEdad" id="txtEdad">
             </div>
 
             <input class="form-control" type="hidden" name="txtIdSecretaria" id="txtIdSecretaria">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" id="btnExpediente">Guardar Expediente</button>
         </form>   
       </div>
@@ -171,7 +179,10 @@ $("#btnExpediente").on("click", function(){
                 text: respuesta,
                 icon: "success"
                 });
-            
+                $("#txtNombre").val("")
+                $("#txtTelefono").val("")
+                $("#txtDireccion").val("")
+                $("#txtEdad").val("")
         }).fail(function(){
             console.log("NO SE ENVIO AL SERVIDOR");
             swal({

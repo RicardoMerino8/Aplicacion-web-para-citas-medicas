@@ -30,8 +30,17 @@ include_once "conexion/Conexion.php";
         public function listarCitas(){
             $sql = "SELECT p.nombreCompleto, p.idPaciente, c.fecha, c.hora, c.tipoConsulta, c.idCita, c.estado FROM cita c INNER JOIN paciente p
             ON c.idPaciente = p.idPaciente WHERE estado=0 ORDER BY fecha ASC, hora DESC;";
-            $tabla = "";
-            $arreglo= [];
+
+            $conexion = new Conexion;
+            $con = $conexion->conectar();
+            $resultado = $con->query($sql);
+            $conexion->desconectar($con);
+            return $resultado;
+        }
+
+        public function listarCitasPendientes(){
+            $sql = "SELECT p.nombreCompleto, p.idPaciente, c.fecha, c.hora, c.tipoConsulta, c.idCita, c.estado FROM cita c INNER JOIN paciente p
+            ON c.idPaciente = p.idPaciente WHERE estado=1 ORDER BY fecha ASC, hora DESC;";
 
             $conexion = new Conexion;
             $con = $conexion->conectar();

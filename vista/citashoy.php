@@ -4,6 +4,7 @@ $usuario = unserialize($_SESSION["sesion"]);
 if($usuario==null ){
     header("location: ../index.php");
 }
+$titulo = "Citas de Hoy";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
@@ -14,7 +15,7 @@ $arreglo = CitaDao::listarCitasHoy();
 <?php
         echo "
         <table class='table' id='tabla'>
-        <thead>
+        <thead class='thead-dark'>
             <tr>
                 <th>Nombre Paciente</th>
                 <th>Fecha</th>
@@ -41,4 +42,3 @@ $arreglo = CitaDao::listarCitasHoy();
 ?>
 <a href="citas.php" class="btn btn-primary">Regresar</a>
 
-<?php include "componentes/footer.php";?>

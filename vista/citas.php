@@ -4,6 +4,7 @@ $usuario = unserialize($_SESSION["sesion"]);
 if($usuario== null ){
   header("location: ../index.php");
 }
+$titulo ="Inicio Secretaria";
 include "componentes/head.php";
 include "componentes/header.php";
 include "componentes/contenedor.php";
@@ -21,7 +22,7 @@ include_once "../modelo/CitaDao.php";
 <?php
     echo "
         <table class='table' id='tabla'>
-        <thead>
+        <thead class='thead-dark'>
             <tr>
                 <th>Nombre Paciente</th>
                 <th>Fecha</th>
